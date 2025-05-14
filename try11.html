@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bedo's 3D Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            perspective: 1000px;
+            background: #f0f0f0;
+        }
+        
+        .split-3d {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+            flex-grow: 1;
+        }
+        
+        .split-3d:hover {
+            transform: rotateX(5deg) rotateY(5deg);
+        }
+        
+        .half-black {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(45deg, #111, #333);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-origin: left;
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+            clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+            z-index: 2;
+        }
+        
+        .half-white {
+            position: absolute;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(45deg, #fff, #eee);
+            color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-origin: right;
+            box-shadow: -10px 10px 30px rgba(0,0,0,0.3);
+            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+            z-index: 1;
+        }
+        
+        .text-container {
+            position: absolute;
+            top: 20%;
+            width: 100%;
+            text-align: center;
+            z-index: 3;
+        }
+        
+        #main-text {
+            font-size: 4rem;
+            font-weight: bold;
+            text-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+        }
+        
+        .options-container {
+            position: absolute;
+            bottom: 20%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            z-index: 3;
+        }
+        
+        .option-box {
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.5s;
+            border-radius: 15px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+            transform-style: preserve-3d;
+        }
+        
+        .option-box:hover {
+            transform: translateY(-10px) rotateX(10deg);
+            box-shadow: 10px 15px 25px rgba(0,0,0,0.4);
+        }
+        
+        .like {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: white;
+        }
+        
+        .dislike {
+            background: linear-gradient(135deg, #F44336, #C62828);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="split-3d">
+        <div class="half-black">
+            <span id="black-text">I'm Bedo</span>
+        </div>
+        <div class="half-white">
+            <span id="white-text">Hi</span>
+        </div>
+        
+        <div class="text-container">
+            <div id="main-text"></div>
+        </div>
+        
+        <div class="options-container">
+            <div class="option-box like" onclick="alert('عايز تعرف ليه معجب؟ ')">
+                بحب إيه
+            </div>
+            <div class="option-box dislike" onclick="alert('وشك')">
+                مش بحب إيه
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const mainText = "I'm Bedo";
+        const elem = document.getElementById("main-text");
+        let i = 0;
+        
+        function typeWriter() {
+            if (i < mainText.length) {
+                elem.innerHTML += mainText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 150);
+            } else {
+                setTimeout(() => {
+                    elem.style.animation = "none";
+                }, 1000);
+            }
+        }
+        
+        window.onload = () => {
+            setTimeout(typeWriter, 500);
+        };
+    </script>
+</body>
+</html>

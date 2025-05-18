@@ -1,164 +1,930 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bedo's 3D Page</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-            perspective: 1000px;
-            background: #f0f0f0;
-        }
-        
-        .split-3d {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transition: transform 1s;
-            flex-grow: 1;
-        }
-        
-        .split-3d:hover {
-            transform: rotateX(5deg) rotateY(5deg);
-        }
-        
-        .half-black {
-            position: absolute;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(45deg, #111, #333);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transform-origin: left;
-            box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
-            clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
-            z-index: 2;
-        }
-        
-        .half-white {
-            position: absolute;
-            right: 0;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(45deg, #fff, #eee);
-            color: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transform-origin: right;
-            box-shadow: -10px 10px 30px rgba(0,0,0,0.3);
-            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
-            z-index: 1;
-        }
-        
-        .text-container {
-            position: absolute;
-            top: 20%;
-            width: 100%;
-            text-align: center;
-            z-index: 3;
-        }
-        
-        #main-text {
-            font-size: 4rem;
-            font-weight: bold;
-            text-shadow: 3px 3px 5px rgba(0,0,0,0.3);
-        }
-        
-        .options-container {
-            position: absolute;
-            bottom: 20%;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            z-index: 3;
-        }
-        
-        .option-box {
-            width: 200px;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.5s;
-            border-radius: 15px;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
-            transform-style: preserve-3d;
-        }
-        
-        .option-box:hover {
-            transform: translateY(-10px) rotateX(10deg);
-            box-shadow: 10px 15px 25px rgba(0,0,0,0.4);
-        }
-        
-        .like {
-            background: linear-gradient(135deg, #4CAF50, #2E7D32);
-            color: white;
-        }
-        
-        .dislike {
-            background: linear-gradient(135deg, #F44336, #C62828);
-            color: white;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>اعرف بيدو!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+      background: #f0f0f0;
+    }
+
+    /* الصفحة الرئيسية */
+    .main-page {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      perspective: 1000px;
+    }
+
+    .split-3d {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+    }
+
+    .split-3d:hover {
+      transform: rotateX(5deg) rotateY(5deg);
+    }
+
+    .half-black {
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      right: 0;
+      background: linear-gradient(45deg, #111, #333);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform-origin: right;
+      box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+      clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+      z-index: 2;
+      font-size: 3rem;
+    }
+
+    .half-white {
+      position: absolute;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(45deg, #fff, #eee);
+      color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform-origin: left;
+      box-shadow: -10px 10px 30px rgba(0,0,0,0.3);
+      clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+      z-index: 1;
+      font-size: 3rem;
+    }
+
+    .text-container {
+      position: absolute;
+      top: 20%;
+      width: 100%;
+      text-align: center;
+      z-index: 3;
+    }
+
+    #main-text {
+      font-size: 4rem;
+      font-weight: bold;
+      text-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+      color: #333;
+      animation: fadeInDown 2s ease-out;
+    }
+
+    .center-container {
+      position: absolute;
+      bottom: 20%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      z-index: 3;
+    }
+
+    .start-box {
+      width: 300px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.5s;
+      border-radius: 15px;
+      box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+      background: linear-gradient(135deg, #2196F3, #0D47A1);
+      color: white;
+      z-index: 4;
+    }
+
+    .start-box:hover {
+      transform: translateY(-10px);
+      box-shadow: 10px 15px 25px rgba(0,0,0,0.4);
+      background: linear-gradient(135deg, #0D47A1, #2196F3);
+    }
+
+    /* الصفحة الثانية */
+    .second-page {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      perspective: 1000px;
+      z-index: 100;
+    }
+
+    .second-page-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+    }
+
+    .second-page-container:hover {
+      transform: rotateX(5deg) rotateY(5deg);
+    }
+
+    .half-white-second {
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(45deg, #f8f8f8, #e0e0e0);
+      clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+      z-index: 2;
+    }
+
+    .half-red {
+      position: absolute;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(45deg, #ff3333, #cc0000);
+      clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+      z-index: 1;
+    }
+
+    .second-page-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 3;
+    }
+
+    .second-page-content h1 {
+      font-size: 2.5rem;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      opacity: 0;
+      animation: fadeIn 2s ease-in-out forwards;
+    }
+
+    .second-page-content p {
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: fadeIn 2s ease-in-out forwards;
+      animation-delay: 1s;
+    }
+
+    .next-btn {
+      padding: 15px 30px;
+      background: #cc0000;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 4;
+    }
+
+    .next-btn:hover {
+      background: #ff3333;
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+
+    /* الصفحة الثالثة */
+    .third-page {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 101;
+    }
+
+    .third-page-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      perspective: 1000px;
+    }
+
+    .third-page-container:hover {
+      transform: rotateX(5deg) rotateY(5deg);
+    }
+
+    .half-darkblue {
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      left: 0;
+      background: linear-gradient(45deg, #001f3f, #003366);
+      clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+      z-index: 1;
+    }
+
+    .half-white-third {
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      right: 0;
+      background: linear-gradient(45deg, #ffffff, #eeeeee);
+      clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+      z-index: 0;
+    }
+
+    .third-page-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+      color: #333;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .third-page h1,
+    .third-page p {
+      opacity: 0;
+      animation: fadeIn 2s ease-in-out forwards;
+    }
+
+    .third-page p {
+      animation-delay: 1s;
+    }
+
+    .choice-container {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .choice-box {
+      width: 200px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .choice-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    #girls-box {
+      background: linear-gradient(135deg, #FF69B4, #C71585);
+      color: white;
+    }
+
+    #zmzm-box {
+      background: linear-gradient(135deg, #FFA500, #FF8C00);
+      color: white;
+    }
+
+    .back-btn {
+      padding: 15px 30px;
+      background: white;
+      color: #CC0000;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 20px;
+    }
+
+    .back-btn:hover {
+      background: #f0f0f0;
+      transform: scale(1.05);
+    }
+
+    /* الصفحة الرابعة */
+    .fourth-page {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 102;
+    }
+
+    .fourth-page-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      perspective: 1000px;
+    }
+
+    .fourth-page-container:hover {
+      transform: rotateX(5deg) rotateY(5deg);
+    }
+
+    .half-darkred {
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      left: 0;
+      background: linear-gradient(45deg, #8B0000, #600000);
+      clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+      z-index: 1;
+    }
+
+    .half-black-second {
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      right: 0;
+      background: linear-gradient(45deg, #222, #000);
+      clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+      z-index: 0;
+    }
+
+    .fourth-page-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .fourth-page h1 {
+      font-size: 3rem;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    .fourth-page p {
+      font-size: 1.5rem;
+      max-width: 80%;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+      animation-delay: 0.5s;
+    }
+
+    .second-choice-container {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .second-choice-box {
+      width: 200px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+      animation-delay: 1s;
+    }
+
+    .second-choice-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    #food-box {
+      background: linear-gradient(135deg, #4CAF50, #2E7D32);
+      color: white;
+    }
+
+    #sleep-box {
+      background: linear-gradient(135deg, #2196F3, #0D47A1);
+      color: white;
+    }
+
+    .back-btn-second {
+      padding: 15px 30px;
+      background: white;
+      color: #8B0000;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 20px;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+      animation-delay: 1.5s;
+    }
+
+    .back-btn-second:hover {
+      background: #f0f0f0;
+      transform: scale(1.05);
+    }
+
+    /* الصفحة الخامسة */
+    .fifth-page {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 103;
+    }
+
+    .fifth-page-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      perspective: 1000px;
+    }
+
+    .fifth-page-container:hover {
+      transform: rotateX(5deg) rotateY(5deg);
+    }
+
+    .half-darkgreen {
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      left: 0;
+      background: linear-gradient(45deg, #006400, #004d00);
+      clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+      z-index: 1;
+    }
+
+    .half-darkpurple {
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      right: 0;
+      background: linear-gradient(45deg, #4B0082, #320064);
+      clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+      z-index: 0;
+    }
+
+    .fifth-page-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .fifth-page h1 {
+      font-size: 3rem;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    .fifth-page p {
+      font-size: 1.5rem;
+      max-width: 80%;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+      animation-delay: 0.5s;
+    }
+
+    .third-choice-container {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .third-choice-box {
+      width: 200px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+      animation-delay: 1s;
+    }
+
+    .third-choice-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    #night-box {
+      background: linear-gradient(135deg, #FF8C00, #FF4500);
+      color: white;
+    }
+
+    #sleep-late-box {
+      background: linear-gradient(135deg, #9370DB, #663399);
+      color: white;
+    }
+
+    .back-btn-third {
+      padding: 15px 30px;
+      background: white;
+      color: #006400;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 20px;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+      animation-delay: 1.5s;
+    }
+
+    .back-btn-third:hover {
+      background: #f0f0f0;
+      transform: scale(1.05);
+    }
+
+    /* الصفحة السادسة */
+    .sixth-page {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 104;
+    }
+
+    .sixth-page-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      perspective: 1000px;
+    }
+
+    .sixth-page-container:hover {
+      transform: rotateX(5deg) rotateY(5deg);
+    }
+
+    .half-darkbrown {
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      left: 0;
+      background: linear-gradient(45deg, #654321, #3D2501);
+      clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+      z-index: 1;
+    }
+
+    .half-darkgray {
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      right: 0;
+      background: linear-gradient(45deg, #333, #111);
+      clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+      z-index: 0;
+    }
+
+    .sixth-page-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .sixth-page h1 {
+      font-size: 3rem;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    .sixth-page p {
+      font-size: 1.5rem;
+      max-width: 80%;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+      animation-delay: 0.5s;
+    }
+
+    .fourth-choice-container {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .fourth-choice-box {
+      width: 200px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+      animation-delay: 1s;
+    }
+
+    .fourth-choice-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    #home-box {
+      background: linear-gradient(135deg, #964B00, #704214);
+      color: white;
+    }
+
+    #street-box {
+      background: linear-gradient(135deg, #696969, #2F4F4F);
+      color: white;
+    }
+
+    .final-btn {
+      padding: 15px 30px;
+      background: white;
+      color: #654321;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 20px;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+      animation-delay: 1.5s;
+    }
+
+    .final-btn:hover {
+      background: #f0f0f0;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
+  <!-- الصفحة الرئيسية -->
+  <div class="main-page" id="mainPage">
     <div class="split-3d">
-        <div class="half-black">
-            <span id="black-text">I'm Bedo</span>
-        </div>
-        <div class="half-white">
-            <span id="white-text">Hi</span>
-        </div>
-        
-        <div class="text-container">
-            <div id="main-text"></div>
-        </div>
-        
-        <div class="options-container">
-            <div class="option-box like" onclick="alert('عايز تعرف ليه معجب؟ ')">
-                بحب إيه
-            </div>
-            <div class="option-box dislike" onclick="alert('وشك')">
-                مش بحب إيه
-            </div>
-        </div>
+      <div class="half-black"><span>me</span></div>
+      <div class="half-white"><span>u know</span></div>
+      <div class="text-container"><div id="main-text">أنا بيدو</div></div>
+      <div class="center-container">
+        <div class="start-box" onclick="showSecondPage()"> !Start Now</div>
+      </div>
     </div>
+  </div>
 
-    <script>
-        const mainText = "I'm Bedo";
-        const elem = document.getElementById("main-text");
-        let i = 0;
-        
-        function typeWriter() {
-            if (i < mainText.length) {
-                elem.innerHTML += mainText.charAt(i);
-                i++;
-                setTimeout(typeWriter, 150);
-            } else {
-                setTimeout(() => {
-                    elem.style.animation = "none";
-                }, 1000);
-            }
-        }
-        
-        window.onload = () => {
-            setTimeout(typeWriter, 500);
-        };
-    </script>
+  <!-- الصفحة الثانية -->
+  <div class="second-page" id="secondPage">
+    <div class="second-page-container">
+      <div class="half-white-second"></div>
+      <div class="half-red"></div>
+      <div class="second-page-content">
+        <h1 id="second-page-title">we will start now</h1>
+        <p id="second-page-content">! Make sure u know me</p>
+        <button class="next-btn" onclick="showThirdPage()">انتقل للصفحة التالية</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- الصفحة الثالثة -->
+  <div class="third-page" id="thirdPage">
+    <div class="third-page-container">
+      <div class="half-darkblue"></div>
+      <div class="half-white-third"></div>
+      <div class="third-page-content">
+        <h1 id="third-page-title">بيدو بيحب ايه اكتر؟</h1>
+        <p id="third-page-content">اختار بيدو بيحب ايه اكتر</p>
+        <div class="choice-container">
+          <div id="girls-box" class="choice-box" onclick="showFourthPage('girls')">بيدو بيحب البنات</div>
+          <div id="zmzm-box" class="choice-box" onclick="showFourthPage('zmzm')">بيدو بيحب صدر زمزم</div>
+        </div>
+        <button class="back-btn" onclick="hideThirdPage()">العودة للصفحة السابقة</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- الصفحة الرابعة -->
+  <div class="fourth-page" id="fourthPage">
+    <div class="fourth-page-container">
+      <div class="half-darkred"></div>
+      <div class="half-black-second"></div>
+      <div class="fourth-page-content">
+        <h1 id="fourth-page-title">بيدو بيحب ايه اكتر؟</h1>
+        <p id="fourth-page-content">اختار بيدو بيحب ايه اكتر</p>
+        <div class="second-choice-container">
+          <div id="food-box" class="second-choice-box" onclick="showFifthPage('food')">الاكل</div>
+          <div id="sleep-box" class="second-choice-box" onclick="showFifthPage('sleep')">النوم</div>
+        </div>
+        <button class="back-btn-second" onclick="hideFourthPage()">العودة للصفحة السابقة</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- الصفحة الخامسة -->
+  <div class="fifth-page" id="fifthPage">
+    <div class="fifth-page-container">
+      <div class="half-darkgreen"></div>
+      <div class="half-darkpurple"></div>
+      <div class="fifth-page-content">
+        <h1 id="fifth-page-title">بيدو بيحب انهي اكتر؟</h1>
+        <p id="fifth-page-content">اختار بيدو بيحب ايه اكتر</p>
+        <div class="third-choice-container">
+          <div id="night-box" class="third-choice-box" onclick="showSixthPage('night')">بيحب السهر</div>
+          <div id="sleep-late-box" class="third-choice-box" onclick="showSixthPage('sleep')">بيحب النوم</div>
+        </div>
+        <button class="back-btn-third" onclick="hideFifthPage()">العودة للصفحة السابقة</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- الصفحة السادسة -->
+  <div class="sixth-page" id="sixthPage">
+    <div class="sixth-page-container">
+      <div class="half-darkbrown"></div>
+      <div class="half-darkgray"></div>
+      <div class="sixth-page-content">
+        <h1 id="sixth-page-title">بيدو بيحب ايه اكتر؟</h1>
+        <p id="sixth-page-content">اختار بيدو بيحب ايه اكتر</p>
+        <div class="fourth-choice-container">
+          <div id="home-box" class="fourth-choice-box" onclick="showFinalAnswer('home')">القعدة في البيت</div>
+          <div id="street-box" class="fourth-choice-box" onclick="showFinalAnswer('street')">اللف في الشارع</div>
+        </div>
+        <button class="final-btn" onclick="restartJourney()">العودة للبداية</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const mainText = "I am Bedo";
+    const secondPageTitle = "We will start now";
+    const secondPageContent = "!Make sure u know me";
+    const thirdPageTitle = "بيدو بيحب ايه اكتر؟";
+    const thirdPageContent = "اختار بيدو بيحب ايه اكتر";
+
+    const mainTextElem = document.getElementById("main-text");
+    const secondTitleElem = document.getElementById("second-page-title");
+    const secondContentElem = document.getElementById("second-page-content");
+    const thirdTitleElem = document.getElementById("third-page-title");
+    const thirdContentElem = document.getElementById("third-page-content");
+    const fourthTitleElem = document.getElementById("fourth-page-title");
+    const fourthContentElem = document.getElementById("fourth-page-content");
+    const fifthTitleElem = document.getElementById("fifth-page-title");
+    const fifthContentElem = document.getElementById("fifth-page-content");
+    const sixthTitleElem = document.getElementById("sixth-page-title");
+    const sixthContentElem = document.getElementById("sixth-page-content");
+
+    function showSecondPage() {
+      document.getElementById('mainPage').style.display = 'none';
+      document.getElementById('secondPage').style.display = 'block';
+      secondTitleElem.textContent = secondPageTitle;
+      secondContentElem.textContent = secondPageContent;
+    }
+
+    function showThirdPage() {
+      document.getElementById('secondPage').style.display = 'none';
+      document.getElementById('thirdPage').style.display = 'block';
+      thirdTitleElem.textContent = thirdPageTitle;
+      thirdContentElem.textContent = thirdPageContent;
+    }
+
+    function hideThirdPage() {
+      document.getElementById('thirdPage').style.display = 'none';
+      document.getElementById('secondPage').style.display = 'block';
+    }
+
+    function showFourthPage(testType) {
+      document.getElementById('thirdPage').style.display = 'none';
+      document.getElementById('fourthPage').style.display = 'block';
+    }
+
+    function hideFourthPage() {
+      document.getElementById('fourthPage').style.display = 'none';
+      document.getElementById('thirdPage').style.display = 'block';
+    }
+
+    function showFifthPage(choice) {
+      document.getElementById('fourthPage').style.display = 'none';
+      document.getElementById('fifthPage').style.display = 'block';
+      
+      if (choice === 'food') {
+        fifthContentElem.textContent = "بيدو بيحب الأكل جداً!";
+      } else {
+        fifthContentElem.textContent = "بيدو بيحب النوم كتير!";
+      }
+    }
+
+    function hideFifthPage() {
+      document.getElementById('fifthPage').style.display = 'none';
+      document.getElementById('fourthPage').style.display = 'block';
+    }
+
+    function showSixthPage(choice) {
+      document.getElementById('fifthPage').style.display = 'none';
+      document.getElementById('sixthPage').style.display = 'block';
+      
+      if (choice === 'night') {
+        sixthContentElem.textContent = "بيدو بيحب السهر!";
+      } else {
+        sixthContentElem.textContent = "بيدو بيحب النوم!";
+      }
+    }
+
+    function showFinalAnswer(choice) {
+      if (choice === 'home') {
+        sixthContentElem.textContent = "صح! بيدو بيحب القعدة في البيت والاسترخاء 🏠";
+      } else {
+        sixthContentElem.textContent = "صح! بيدو بيحب اللف في الشارع والزحمة 🚗";
+      }
+    }
+
+    function restartJourney() {
+      document.getElementById('sixthPage').style.display = 'none';
+      document.getElementById('mainPage').style.display = 'block';
+      // Reset content
+      fourthContentElem.textContent = "اختار بيدو بيحب ايه اكتر";
+      fifthContentElem.textContent = "اختار بيدو بيحب ايه اكتر";
+      sixthContentElem.textContent = "اختار بيدو بيحب ايه اكتر";
+    }
+
+    window.onload = () => {
+      mainTextElem.textContent = mainText;
+    };
+  </script>
 </body>
 </html>
